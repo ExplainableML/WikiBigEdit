@@ -1,0 +1,16 @@
+model_name: "google/gemma-7b"
+alg_name: "RAG"
+device: 0
+top_k: 1
+similarity_metric: "cosine"
+exact_match: false
+solver: "HNSW"
+solver_args:
+  hnsw_m: 2056
+model_parallel: false
+max_length: 200
+
+
+
+
+

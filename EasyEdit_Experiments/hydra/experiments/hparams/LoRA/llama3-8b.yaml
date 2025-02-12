@@ -1,0 +1,24 @@
+alg_name: "LoRA"
+model_name: "meta-llama/Meta-Llama-3-8B"
+device: 0
+
+lora_type: "lora"
+layers: []
+num_steps: 10
+batch_size: 5
+max_length: 100
+lr: 5e-3
+weight_decay: 0
+kl_factor: 0
+rank: 8
+lora_alpha: 32
+lora_dropout: 0.1
+norm_constraint: false
+target_modules: ["q_proj", "v_proj"]  #["up_proj", "down_proj"] #["q_proj", "v_proj"]
+model_parallel: false
+fp16: false
+
+
+
+
+

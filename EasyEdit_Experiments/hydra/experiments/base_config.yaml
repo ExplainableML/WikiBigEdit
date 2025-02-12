@@ -1,0 +1,45 @@
+defaults:
+  - _self_
+
+
+experiment: ""
+debug: false
+
+editing_method: ''
+base_model: ''
+hparams_dir: ''
+data_dir: 'data'
+ds_size: 0
+ds_seed: 42
+batch_size: 1
+seed: 42
+metrics_save_dir: 'metrics'
+
+checkpoint:
+  save: false
+  load: false
+  save_dir: 'checkpoints'
+
+qa:
+  model: 'gpt-3.5-turbo'
+  fs_examples: true
+  past_eval_interval: 0
+  modes:
+    - open
+    - closed
+  modes_combine: mix
+  increments:
+    - "20240201_20240220"
+  filter_edits: false
+  past_eval:
+    interval: 0
+    max_samples: 0
+  base_eval:
+    datasets:
+      - squad
+      - triviaqa
+      - commonsenseqa
+    ds_size: 0
+    ds_seed: 42
+    fs_examples: true
+    interval: 0

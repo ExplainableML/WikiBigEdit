@@ -1,0 +1,11 @@
+alg_name: 'RAG'
+model_name: 'mistralai/Mistral-7B-v0.3'
+device: 0
+top_k: 1
+similarity_metric: "cosine"
+exact_match: false
+solver: "HNSW"
+solver_args:
+  hnsw_m: 2056
+model_parallel: false
+max_length: 200

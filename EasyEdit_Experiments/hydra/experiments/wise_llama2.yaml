@@ -1,0 +1,59 @@
+defaults:
+  - wandb: wandb
+  - hparams: WISE/llama-7b
+  - base_config
+  - _self_
+
+wandb:
+  notes: "WISE on Llama 2"
+
+experiment: "wise_llama2"
+debug: false
+
+editing_method: 'WISE'
+base_model: llama-2-7b
+data_dir: 'data'
+ds_size: -1
+ds_seed: 42
+metrics_save_dir: 'metrics'
+hparams:
+  n_iter: 10
+  retrieve: true
+  model_parallel: true
+
+qa:
+  model: gpt-3.5-turbo
+  fs_examples: true
+  filter_edits: false
+  eval_max_samples: null
+  past_eval:
+    interval: 100
+    max_samples: 100
+  base_eval:
+    datasets:
+      - squad
+      - triviaqa
+      - commonsenseqa
+    ds_size: 500
+    ds_seed: 42
+    fs_examples: true
+    interval: 100
+  modes:
+    - open
+    #- closed
+  modes_combine: concat
+  increments:
+   - 0
+   #- 1
+   #- 2
+   #- 3
+   #- 4
+   #- 5
+   #- 6
+   #- 7
+
+checkpoint:
+  save: false
+  load: false
+
+batch_size: 1

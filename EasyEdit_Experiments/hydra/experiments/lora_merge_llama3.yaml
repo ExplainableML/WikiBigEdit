@@ -1,0 +1,70 @@
+defaults:
+  - wandb: wandb
+  - hparams: LoRA/llama3-8b
+  - base_config
+  - _self_
+
+wandb:
+  notes: "LoRA merge on Llama 3"
+
+experiment: "lora_merge_llama3"
+debug: false
+
+editing_method: 'LoRA'
+base_model: llama-3-8b
+data_dir: 'data'
+ds_size: -1
+ds_seed: 42
+metrics_save_dir: 'metrics'
+
+hparams:
+  batch_size: 32
+  num_steps: 10
+  lr: 5e-3
+  model_parallel: false
+  data_parallel: false
+  lora_distributed: false
+  fp16: false
+  max_length: 200
+  rank: 4
+  lora_alpha: 8
+  lora_type: 'lora'
+  merge: true
+  merge_alpha: 0.25
+
+checkpoint:
+  save: false
+  load: false
+
+qa:
+  model: gpt-3.5-turbo
+  fs_examples: true
+  filter_edits: false
+  eval_max_samples: null
+  past_eval:
+    interval: 1
+    max_samples: 1000
+  base_eval:
+    datasets:
+      - squad
+      - triviaqa
+      - commonsenseqa
+    ds_size: 500
+    ds_seed: 42
+    fs_examples: true
+    interval: 10000
+  modes:
+    - open
+    #- closed
+  modes_combine: concat
+  increments:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+
+batch_size: 128

@@ -1,0 +1,9 @@
+qwikidata
+transformers
+wikidata
+pandas
+bs4
+requests
+wikiextractor
+gensim
+torch

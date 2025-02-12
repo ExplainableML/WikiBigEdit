@@ -1,0 +1,13 @@
+alg_name: "PTuning"
+model_name: "meta-llama/Llama-2-7b-hf"
+device: 0
+prompt_length: 1
+lr: 1e-5
+epochs: 2
+model_parallel: false
+max_length: 200
+
+
+
+
+

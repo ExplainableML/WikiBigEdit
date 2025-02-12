@@ -1,0 +1,54 @@
+defaults:
+  - wandb: wandb
+  - hparams: EVAL/mistral-7b
+  - base_config
+  - _self_
+
+wandb:
+  notes: "Eval only mistral"
+
+experiment: "eval_only_mistral"
+debug: false
+
+editing_method: 'EVAL'
+base_model: mistral-7b
+data_dir: 'data'
+ds_size: -1
+ds_seed: 42
+metrics_save_dir: 'metrics'
+
+hparams:
+  max_length: 200
+
+checkpoint:
+  save: false
+  load: false
+
+qa:
+  model: gpt-3.5-turbo
+  fs_examples: true
+  past_eval: false
+  base_eval:
+    datasets:
+      - squad
+      - triviaqa
+      - commonsenseqa
+    ds_size: 500
+    ds_seed: 42
+    fs_examples: true
+    interval: 10000
+  modes:
+    - open
+  modes_combine: concat
+  increments:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+
+batch_size: 32
+

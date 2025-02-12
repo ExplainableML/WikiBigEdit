@@ -1,0 +1,62 @@
+defaults:
+  - wandb: wandb
+  - hparams: RAG/gemma-7b
+  - base_config
+  - _self_
+
+wandb:
+  notes: "RAG annoy on Gemma"
+
+experiment: "rag_gemma"
+debug: false
+
+editing_method: 'RAG'
+base_model: gemma-7b
+data_dir: 'data'
+ds_size: -1
+ds_seed: 42
+metrics_save_dir: 'metrics'
+hparams:
+  top_k: 2
+  solver: annoy_HNSW
+  solver_args:
+    n_trees: 100
+    metric: 'angular'
+    gpu: false
+
+checkpoint:
+  save: false
+  load: false
+
+qa:
+  model: gpt-3.5-turbo
+  fs_examples: true
+  filter_edits: true
+  eval_max_samples: null
+  past_eval:
+    interval: 100
+    max_samples: 1000
+  base_eval:
+    datasets:
+      - squad
+      - triviaqa
+      - commonsenseqa
+    ds_size: 500
+    ds_seed: 42
+    fs_examples: true
+    interval: 10000
+  modes:
+    - open
+    #- closed
+  modes_combine: concat
+  increments:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+
+batch_size: 64
