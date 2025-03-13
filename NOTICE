@@ -1,0 +1,10 @@
+This project includes code from the following repositories:
+
+1. TemporalWikiDatasets (Apache License 2.0) - https://github.com/CHLee0801/TemporalWikiDatasets
+   - Adapted for generating a QA benchmark from the Wikidata knowledge graph.
+
+2. EasyEdit (MIT License) - https://github.com/zjunlp/EasyEdit
+   - Adapted for conducting knowledge editing experiments.
+
+All modifications to these original works are licensed under the Apache License, Version 2.0.
+See the LICENSE file for details.
