@@ -5,6 +5,9 @@ This codebase is an adapted version of the **EasyEdit** framework, modified for 
 
 For reference, the original EasyEdit repository can be found [here](https://github.com/thunlp/EasyEdit).
 
+## Downloading the WikiBigEdit Dataset
+The WikiBigEdit dataset can be downloaded from the [WikiBigEdit repository](https://huggingface.co/datasets/lukasthede/WikiBigEdit) and should be saved in the `data/wikibigedit` directory.
+
 ## Running Experiments
 To run an editing experiment, use the following command:
 ```bash

@@ -118,12 +118,12 @@ def main(args: DictConfig) -> None:
                    config=oc.to_container(args, resolve=True, throw_on_missing=True),
                    settings=wandb.Settings(_service_wait=300))
 
-    print(f' Running {args.editing_method} on increments: {args.qa.increments} with modes: {args.qa.modes}')
+    print(f' Running {args.editing_method} on increments: {args.qa.increments}')
     all_data = {}
     for increment in args.qa.increments:
         print(f'++++++++++++ Increment: {increment} ++++++++++++')
         for mode in args.qa.modes:
-            test_data = json.load(open(os.path.join(args.data_dir, f'{increment}/{mode}_qa_{args.qa.model}.json'), 'r', encoding='utf-8'))
+            test_data = json.load(open(os.path.join(args.data_dir, f'wikibigedit/wiki_big_edit_{increment}.json'), 'r', encoding='utf-8'))
 
             if args.ds_size > 0:
                 random.seed(args.ds_seed)
@@ -270,18 +270,18 @@ def extract_data(test_data):
             'ground_truth': [],
         },
     }
-    prompts += [test_data_['src'] for test_data_ in test_data]
+    prompts += [test_data_['update'] for test_data_ in test_data]
     rephrase_prompts += [edit_data_['rephrase'] for edit_data_ in test_data]
     locality_prompts = [edit_data_['loc'] for edit_data_ in test_data]
-    target_new += [edit_data_['alt'] for edit_data_ in test_data]
+    target_new += [edit_data_['ans'] for edit_data_ in test_data]
     locality_ans = [edit_data_['loc_ans'] for edit_data_ in test_data]
     tags += [edit_data_['tag'] for edit_data_ in test_data]
     mhop_questions = [edit_data_['mhop'] for edit_data_ in test_data]
     mhop_answers = [edit_data_['mhop_ans'] for edit_data_ in test_data]
-    genv2_questions = {}
+    personas_questions = {}
     for key in test_data[0].keys():
-        if key.startswith('genv2_'):
-            genv2_questions[key] = [edit_data_[key] for edit_data_ in test_data]
+        if key.startswith('personas'):
+            personas_questions[key] = [edit_data_[key] for edit_data_ in test_data]
             if key not in portability_inputs:
                 portability_inputs[key] = {
                     'prompt': [],
@@ -292,8 +292,8 @@ def extract_data(test_data):
     locality_inputs['neighborhood']['ground_truth'] += locality_ans
     portability_inputs['mhop']['prompt'] += mhop_questions
     portability_inputs['mhop']['ground_truth'] += mhop_answers
-    for key in genv2_questions.keys():
-        portability_inputs[key]['prompt'] += genv2_questions[key]
+    for key in personas_questions.keys():
+        portability_inputs[key]['prompt'] += personas_questions[key]
         portability_inputs[key]['ground_truth'] += [edit_data_['alt'] for edit_data_ in test_data]
 
     subject += [edit_data_['subject'] for edit_data_ in test_data]

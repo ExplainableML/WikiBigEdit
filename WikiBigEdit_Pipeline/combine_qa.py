@@ -49,6 +49,7 @@ def combine_qa(edit, generality, locality, mhop, genV2, args):
 
         genV2_q = {}
         for character in genV2.keys():
+            character_str = f'_{character}' if character != 'mixed' else ''
             tmp = genV2[character]
             if 'id' in tmp.columns:
                 tmp = tmp[tmp['id'] == id]
@@ -58,9 +59,9 @@ def combine_qa(edit, generality, locality, mhop, genV2, args):
                 raise ValueError
             if len(tmp) == 1:
                 if 'reformulated_question' in tmp.columns:
-                    genV2_q[f'genv2_{character}'] = tmp['reformulated_question'].values[0]
+                    genV2_q[f'personas{character_str}'] = tmp['reformulated_question'].values[0]
                 else:
-                    genV2_q[f'genv2_{character}'] = tmp['question'].values[0]
+                    genV2_q[f'personas{character_str}'] = tmp['question'].values[0]
             else:
                 print(f'No generality 2.0 found for {id} in {character} - generating question')
                 mixed_genV2 = generate_generality_open_qa_pairs(edit.loc[[id]], model='gpt-4o-mini', character=character)
@@ -76,9 +77,9 @@ def combine_qa(edit, generality, locality, mhop, genV2, args):
         id_qa = {
             'tag': tag,
             'subject': subject,
-            'src': edit.loc[id, 'question'],
+            'update': edit.loc[id, 'question'],
             'rephrase': gen,
-            'alt': edit.loc[id, 'answer'],
+            'ans': edit.loc[id, 'answer'],
             'loc': locality.loc[id, 'question'],
             'loc_ans': locality.loc[id, 'answer'],
             'mhop': mhop_question,
